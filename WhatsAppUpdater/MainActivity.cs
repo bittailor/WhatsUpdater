@@ -12,79 +12,74 @@ namespace WhatsAppUpdater
 {
 
 
-    [Activity(Label = "WhatsApp Updater", MainLauncher = true, Icon = "@mipmap/icon")]
+    [Activity(Label = "@string/title", 
+              MainLauncher = true, 
+              Icon = "@mipmap/icon", 
+              Theme = "@android:style/Theme.Material.Light.DarkActionBar" )]
     public class MainActivity : Activity
     {
         private const string TAG = "AppCode";
 
+        private Button _refreshButton;
         private Button _installButton;
-        private TextView _statusText;
+        private TextView _installedVersion;
+        private TextView _latestVersion;
 
         private (string version, string url) _updateInfo;
-        int count = 1;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.myButton);
+            _refreshButton = FindViewById<Button>(Resource.Id.buttonRefresh);
             _installButton = FindViewById<Button>(Resource.Id.buttonInstall);
-            _statusText = FindViewById<TextView>(Resource.Id.textViewStatus);
-            _statusText.Text = "--";
+            _installedVersion = FindViewById<TextView>(Resource.Id.textViewInstalledVersion);
+            _latestVersion = FindViewById<TextView>(Resource.Id.textViewLatestVersion);
 
-            TextView installedVersion = FindViewById<TextView>(Resource.Id.textViewInstalledVersion);
+            _installButton.Click += (s,e) => Install();
+            _refreshButton.Click += (s,e) => Refresh();
+        }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            Refresh();
+        }
 
-
-            button.Click += delegate { button.Text = $"{count++} clicks!"; };
-            _installButton.Click += Install;
-
+        private async void Refresh()
+        {
+            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.refresh), "Read Installed Version");
             try
             {
-                installedVersion.Text = PackageManager.GetPackageInfo("com.whatsapp", 0).VersionName;
+                _installedVersion.Text = PackageManager.GetPackageInfo("com.whatsapp", 0).VersionName;
             }
             catch (PackageManager.NameNotFoundException)
             {
-                installedVersion.Text = "not installed";
+                _installedVersion.Text = "not installed";
             }
-
-            button.Click += (sender, e) => {
-                UpdateLatestVersionAsync();
-            };
-
-            UpdateLatestVersionAsync();
+            progress.SetMessage("Load Latest Version");
+            _updateInfo = await GetLatestVersion();
+            _latestVersion.Text = _updateInfo.version;
+            _installButton.Enabled = _updateInfo.url != null;
+            progress.Dismiss();
         }
 
-        private async void Install(object sender, EventArgs e)
+        private async void Install()
         {
-            _statusText.Text = "download ...";
+            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.install), "Download APK");
             string file = await Download(_updateInfo.version, _updateInfo.url);
-            _statusText.Text = "... download done => install ...";
+            progress.SetMessage("Start install");
             Android.Util.Log.Info(TAG, $"File is {file}");
             Install(file);
-            _statusText.Text = "... install done";
-        }
-
-        protected override void OnResume() {
-            base.OnResume();
-            UpdateLatestVersionAsync();
+            progress.Dismiss();
         }
 
 
-        private async void UpdateLatestVersionAsync()
-        {
-            TextView latestVersion = FindViewById<TextView>(Resource.Id.textViewLatestVersion);
-            Button button = FindViewById<Button>(Resource.Id.myButton);
-            latestVersion.Text = "loading...";
-            _updateInfo = await GetLatestVersion();
-            latestVersion.Text = _updateInfo.version;
-            _installButton.Enabled = _updateInfo.url != null;
-        }
+
+
+
 
 
         private async Task<(string version, string url)> GetLatestVersion()

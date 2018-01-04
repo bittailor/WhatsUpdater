@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">WhatsApp Updater</string>
-    <string name="install">Installieren</string>
+    <string name="title">WhatsApp Aktualisieren</string>
+    <string name="refresh">Prüfen</string>
+    <string name="install">Update Installieren</string>
 </resources>
