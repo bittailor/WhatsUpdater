@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <GridLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridLayout1"
+        android:columnCount="2"
+        android:rowCount="2">
+        <TextView
+            android:text="Installed Version"
+            android:id="@+id/textViewInstalledVersionLabel"
+            android:paddingRight="20dp"
+            android:paddingLeft="5dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Title" />
+        <TextView
+            android:text="Large Text"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:id="@+id/textViewInstalledVersion" />
+        <TextView
+            android:text="Latest Version"
+            android:textAppearance="@android:style/TextAppearance.Material.Title"
+            android:paddingRight="20dp"
+            android:paddingLeft="5dp"
+            android:id="@+id/textViewLatestVersionLabel" />
+        <TextView
+            android:text="Large Text"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:id="@+id/textViewLatestVersion" />
+    </GridLayout>
+    <Button
+        android:id="@+id/myButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello" />
+    <Button
+        android:id="@+id/buttonInstall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/install" />
+    <TextView
+        android:text="Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewStatus" />
+</LinearLayout>
