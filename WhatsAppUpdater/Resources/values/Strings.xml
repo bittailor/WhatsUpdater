@@ -3,5 +3,12 @@
 	<string name="app_name">WhatsApp Updater</string>
     <string name="title">WhatsApp Aktualisieren</string>
     <string name="refresh">Prüfen</string>
-    <string name="install">Update Installieren</string>
+    <string name="refreshMessage">Versionen prüfen</string>
+
+    <string name="install">Update installieren</string>
+    <string name="download">APK download</string>
+    <string name="startInstall">Starte installation</string>
+    
+    <string name="labelInstallVersion">Installierte Version</string>
+    <string name="labelLatestVersion">Neuste Version</string>
 </resources>

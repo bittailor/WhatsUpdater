@@ -3,52 +3,46 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="30dp">
-    <GridLayout
-        android:minWidth="25px"
-        android:minHeight="25px"
+    android:paddingTop="30dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <TextView
+        android:id="@+id/textViewInstalledVersionLabel"
+        android:text="@string/labelInstallVersion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/gridLayout1"
-        android:columnCount="2"
-        android:rowCount="2">
-        <TextView
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:text="Installed Version"
-            android:id="@+id/textViewInstalledVersionLabel"
-            android:paddingRight="20dp"
-            android:paddingLeft="5dp"
-            android:textAppearance="@android:style/TextAppearance.Material.Title" />
-        <TextView
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:text="Large Text"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            android:id="@+id/textViewInstalledVersion" />
-        <TextView
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:text="Latest Version"
-            android:textAppearance="@android:style/TextAppearance.Material.Title"
-            android:paddingRight="20dp"
-            android:paddingLeft="5dp"
-            android:id="@+id/textViewLatestVersionLabel" />
-        <TextView
-            android:layout_columnWeight="1"
-            android:layout_rowWeight="1"
-            android:text="Large Text"
-            android:textAppearance="@android:style/TextAppearance.Material.Headline"
-            android:id="@+id/textViewLatestVersion" />
-    </GridLayout>
+        android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+    <TextView
+        android:id="@+id/textViewInstalledVersion"
+        android:text="Large Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="40dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Display2" />
+    <TextView
+        android:id="@+id/textViewLatestVersionLabel"
+        android:text="@string/labelLatestVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+    <TextView
+        android:id="@+id/textViewLatestVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:paddingLeft="40dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Display2" />
     <Button
         android:id="@+id/buttonRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/refresh" />
+        android:text="@string/refresh"
+        android:layout_marginTop="20dp" />
     <Button
         android:id="@+id/buttonInstall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/install" />
+        android:text="@string/install"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

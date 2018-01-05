@@ -50,7 +50,7 @@ namespace WhatsAppUpdater
 
         private async void Refresh()
         {
-            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.refresh), "Read Installed Version");
+            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.refresh), Resources.GetString(Resource.String.refreshMessage));
             try
             {
                 _installedVersion.Text = PackageManager.GetPackageInfo("com.whatsapp", 0).VersionName;
@@ -59,7 +59,6 @@ namespace WhatsAppUpdater
             {
                 _installedVersion.Text = "not installed";
             }
-            progress.SetMessage("Load Latest Version");
             _updateInfo = await GetLatestVersion();
             _latestVersion.Text = _updateInfo.version;
             _installButton.Enabled = _updateInfo.url != null;
@@ -68,11 +67,14 @@ namespace WhatsAppUpdater
 
         private async void Install()
         {
-            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.install), "Download APK");
+            Android.Util.Log.Info(TAG, $"download {_updateInfo.url} ...");
+            var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.install), Resources.GetString(Resource.String.download));
             string file = await Download(_updateInfo.version, _updateInfo.url);
-            progress.SetMessage("Start install");
-            Android.Util.Log.Info(TAG, $"File is {file}");
+            Android.Util.Log.Info(TAG, $" ... download done");
+            progress.SetMessage(Resources.GetString(Resource.String.startInstall));
+            Android.Util.Log.Info(TAG, $"install {file} ...");
             Install(file);
+            Android.Util.Log.Info(TAG, $"... install done");
             progress.Dismiss();
         }
 
@@ -124,8 +126,16 @@ namespace WhatsAppUpdater
             Intent intent = new Intent(Intent.ActionView);
             intent.SetDataAndType(Android.Net.Uri.FromFile(new Java.IO.File(file)), "application/vnd.android.package-archive");
             intent.SetFlags(ActivityFlags.NewTask);
-            StartActivity(intent); 
+            //StartActivity(intent);
+            StartActivityForResult(intent, 4711);
         }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data) {
+            Android.Util.Log.Info(TAG, $" ... activity done");        
+        }
+
+
+
     }
 }
 

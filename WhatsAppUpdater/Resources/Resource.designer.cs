@@ -44,26 +44,23 @@ namespace WhatsAppUpdater
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050006
-			public const int buttonInstall = 2131034118;
-			
 			// aapt resource value: 0x7f050005
-			public const int buttonRefresh = 2131034117;
-			
-			// aapt resource value: 0x7f050000
-			public const int gridLayout1 = 2131034112;
-			
-			// aapt resource value: 0x7f050002
-			public const int textViewInstalledVersion = 2131034114;
-			
-			// aapt resource value: 0x7f050001
-			public const int textViewInstalledVersionLabel = 2131034113;
+			public const int buttonInstall = 2131034117;
 			
 			// aapt resource value: 0x7f050004
-			public const int textViewLatestVersion = 2131034116;
+			public const int buttonRefresh = 2131034116;
+			
+			// aapt resource value: 0x7f050001
+			public const int textViewInstalledVersion = 2131034113;
+			
+			// aapt resource value: 0x7f050000
+			public const int textViewInstalledVersionLabel = 2131034112;
 			
 			// aapt resource value: 0x7f050003
-			public const int textViewLatestVersionLabel = 2131034115;
+			public const int textViewLatestVersion = 2131034115;
+			
+			// aapt resource value: 0x7f050002
+			public const int textViewLatestVersionLabel = 2131034114;
 			
 			static Id()
 			{
@@ -113,11 +110,26 @@ namespace WhatsAppUpdater
 			// aapt resource value: 0x7f040000
 			public const int app_name = 2130968576;
 			
-			// aapt resource value: 0x7f040003
-			public const int install = 2130968579;
+			// aapt resource value: 0x7f040005
+			public const int download = 2130968581;
+			
+			// aapt resource value: 0x7f040004
+			public const int install = 2130968580;
+			
+			// aapt resource value: 0x7f040007
+			public const int labelInstallVersion = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int labelLatestVersion = 2130968584;
 			
 			// aapt resource value: 0x7f040002
 			public const int refresh = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int refreshMessage = 2130968579;
+			
+			// aapt resource value: 0x7f040006
+			public const int startInstall = 2130968582;
 			
 			// aapt resource value: 0x7f040001
 			public const int title = 2130968577;
