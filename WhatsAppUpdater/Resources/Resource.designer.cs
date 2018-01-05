@@ -113,6 +113,9 @@ namespace WhatsAppUpdater
 			// aapt resource value: 0x7f040005
 			public const int download = 2130968581;
 			
+			// aapt resource value: 0x7f040009
+			public const int downloadFailed = 2130968585;
+			
 			// aapt resource value: 0x7f040004
 			public const int install = 2130968580;
 			
@@ -122,11 +125,29 @@ namespace WhatsAppUpdater
 			// aapt resource value: 0x7f040008
 			public const int labelLatestVersion = 2130968584;
 			
+			// aapt resource value: 0x7f04000c
+			public const int noWifi = 2130968588;
+			
+			// aapt resource value: 0x7f04000e
+			public const int notFound = 2130968590;
+			
+			// aapt resource value: 0x7f04000f
+			public const int notInstalled = 2130968591;
+			
+			// aapt resource value: 0x7f04000a
+			public const int ok = 2130968586;
+			
+			// aapt resource value: 0x7f04000b
+			public const int oops = 2130968587;
+			
 			// aapt resource value: 0x7f040002
 			public const int refresh = 2130968578;
 			
 			// aapt resource value: 0x7f040003
 			public const int refreshMessage = 2130968579;
+			
+			// aapt resource value: 0x7f04000d
+			public const int requestFailed = 2130968589;
 			
 			// aapt resource value: 0x7f040006
 			public const int startInstall = 2130968582;

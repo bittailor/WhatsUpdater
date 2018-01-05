@@ -38,11 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/refresh"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:minHeight="100dp" />
     <Button
         android:id="@+id/buttonInstall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/install"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:minHeight="200dp" />
 </LinearLayout>

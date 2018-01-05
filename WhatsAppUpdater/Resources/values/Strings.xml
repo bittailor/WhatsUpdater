@@ -11,4 +11,14 @@
     
     <string name="labelInstallVersion">Installierte Version</string>
     <string name="labelLatestVersion">Neuste Version</string>
+    
+    <string name="downloadFailed">Download fehlgeschlagen!</string>
+
+    <string name="ok">Ok</string>
+    <string name="oops">Ooops</string>
+    
+    <string name="noWifi">Kein WLAN</string>
+    <string name="requestFailed">Request fehlgeschlagen</string>
+    <string name="notFound">Nicht gefunden</string>
+    <string name="notInstalled">Nicht installiert</string>
 </resources>
