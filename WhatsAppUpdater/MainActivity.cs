@@ -69,20 +69,31 @@ namespace WhatsAppUpdater
         {
             Android.Util.Log.Info(TAG, $"download {_updateInfo.url} ...");
             var progress = ProgressDialog.Show(this, Resources.GetString(Resource.String.install), Resources.GetString(Resource.String.download));
-            string file = await Download(_updateInfo.version, _updateInfo.url);
+            (bool success, string fileUri, string mimeType) = await Download(_updateInfo.version, _updateInfo.url);
+            if(!success) {
+                Android.Util.Log.Info(TAG, $" ... download failed");
+                progress.Dismiss();
+                ShowFailedDialog(fileUri);
+                return;
+            }
             Android.Util.Log.Info(TAG, $" ... download done");
             progress.SetMessage(Resources.GetString(Resource.String.startInstall));
-            Android.Util.Log.Info(TAG, $"install {file} ...");
-            Install(file);
+            Android.Util.Log.Info(TAG, $"install {fileUri} ...");
+            Install(fileUri);
             Android.Util.Log.Info(TAG, $"... install done");
             progress.Dismiss();
         }
 
-
-
-
-
-
+        private void ShowFailedDialog(string message) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.SetTitle("Failed");
+            alert.SetMessage($"Download failed : {message}");
+            alert.SetPositiveButton("OK", (senderAlert, args) =>
+            {
+            });
+            Dialog dialog = alert.Create();
+            dialog.Show();
+        }
 
         private async Task<(string version, string url)> GetLatestVersion()
         {
@@ -106,25 +117,74 @@ namespace WhatsAppUpdater
             return ("invalid",null);
         }
 
-        private async Task<string> Download(string version, string url)
+        private Task<(bool success, string uri, string mimeType)> Download(string version, string url)
         {
-            var httpClient = new System.Net.Http.HttpClient();
+            var destination = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).ToString();
+            destination = destination + "/WhatsApp_" + version + ".apk";
 
-            var path = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).ToString();
-            path = path + "/WhatsApp_" + version + ".apk";
-            Android.Util.Log.Info(TAG, $"Download to {path} ...");
-
-            using (FileStream fileStream = new FileStream(path, FileMode.Create)) {
-                var stream = await httpClient.GetStreamAsync(url);
-                await stream.CopyToAsync(fileStream);
-                Android.Util.Log.Info(TAG, $" ... download done");
-                return path;
+            if(System.IO.File.Exists(destination)) 
+            {
+                Android.Util.Log.Info(TAG, $"delete file {destination}");
+                System.IO.File.Delete(destination);    
             }
+
+            //set downloadmanager
+            DownloadManager.Request request = new DownloadManager.Request(Android.Net.Uri.Parse(url));
+            request.SetDescription(Resources.GetString(Resource.String.download));
+            request.SetTitle(Resources.GetString(Resource.String.app_name));
+
+            //set destination
+            request.SetDestinationUri(Android.Net.Uri.Parse("file://" + destination));
+
+            // get download service and enqueue file
+            DownloadManager manager = (DownloadManager)GetSystemService(Context.DownloadService);
+            long downloadId = manager.Enqueue(request);
+
+            var done = new TaskCompletionSource<(bool success, string uri, string mimeType)>();
+            BroadcastReceiver onComplete = new ActionBroadcastReceiver((context, intent, self) =>
+            {
+                long id = intent.GetLongExtra(DownloadManager.ExtraDownloadId, 0L);
+                if (id != downloadId)
+                {
+                    return;
+                }
+                UnregisterReceiver(self);
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.SetFilterById(id);
+                var cursor = manager.InvokeQuery(query);
+                if (!cursor.MoveToFirst())
+                {
+                    Android.Util.Log.Error(TAG, "Failed to get download properties");
+                    return;
+                }
+                int statusIndex = cursor.GetColumnIndex(DownloadManager.ColumnStatus);
+                int status = cursor.GetInt(statusIndex);
+
+                if ((int)Android.App.DownloadStatus.Successful != status)
+                {
+                    int reasonCode = cursor.GetInt(cursor.GetColumnIndex(DownloadManager.ColumnReason));
+                    var reason = (DownloadError)reasonCode;
+                    var message = $"Failed {reasonCode} => {reason}";
+                    Android.Util.Log.Info(TAG, $"download failed: {message}"); 
+                    done.SetResult((false, "", ""));
+                    return;
+                }
+
+                int uriIndex = cursor.GetColumnIndex(DownloadManager.ColumnLocalUri);
+                string localUri = cursor.GetString(uriIndex);
+
+                string mimeType = manager.GetMimeTypeForDownloadedFile(id);
+
+                done.SetResult((true, localUri, mimeType));    
+                   
+            });
+            RegisterReceiver(onComplete, new IntentFilter(DownloadManager.ActionDownloadComplete));
+            return done.Task;
         }
 
-        private void Install(string file) {
+        private void Install(string fileUri) {
             Intent intent = new Intent(Intent.ActionView);
-            intent.SetDataAndType(Android.Net.Uri.FromFile(new Java.IO.File(file)), "application/vnd.android.package-archive");
+            intent.SetDataAndType(Android.Net.Uri.Parse(fileUri), "application/vnd.android.package-archive");
             intent.SetFlags(ActivityFlags.NewTask);
             //StartActivity(intent);
             StartActivityForResult(intent, 4711);
@@ -134,6 +194,21 @@ namespace WhatsAppUpdater
             Android.Util.Log.Info(TAG, $" ... activity done");        
         }
 
+
+        private class ActionBroadcastReceiver : BroadcastReceiver
+        {
+            private readonly Action<Context, Intent, BroadcastReceiver> _onReceive;     
+
+            public ActionBroadcastReceiver(Action<Context, Intent, BroadcastReceiver> onReceive)
+            {
+                _onReceive = onReceive;    
+            }
+
+            public override void OnReceive(Context context, Intent intent)
+            {
+                _onReceive(context, intent, this);    
+            }
+        }
 
 
     }
