@@ -1,7 +1,7 @@
 ﻿using Android.Content;
 using System;
 
-namespace WhatsAppUpdater
+namespace WhatsUpdater
 {
     public class ActionBroadcastReceiver : BroadcastReceiver
     {

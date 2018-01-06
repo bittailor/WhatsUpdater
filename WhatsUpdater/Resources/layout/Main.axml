@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="#075E54"
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+        <ImageView
+            android:src="@drawable/whatsapp"
+            android:id="@+id/imageView1"
+            android:layout_width="64.0dp"
+            android:layout_height="64.5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="0.0dp" />
+        <TextView
+            android:id="@+id/textViewHeader"
+            android:text="@string/header"
+            android:paddingBottom="20dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#ffffffff"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:id="@+id/textViewInstalledVersionLabel"
+            android:text="@string/labelInstallVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+        <TextView
+            android:id="@+id/textViewInstalledVersion"
+            android:text="Large Text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="40dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Display2" />
+        <TextView
+            android:id="@+id/textViewLatestVersionLabel"
+            android:text="@string/labelLatestVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Caption" />
+        <TextView
+            android:id="@+id/textViewLatestVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Large Text"
+            android:paddingLeft="40dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Display2" />
+        <Button
+            android:id="@+id/buttonRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/refresh"
+            android:layout_marginTop="20dp"
+            android:minHeight="80dp" />
+        <Button
+            android:id="@+id/buttonInstall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/install"
+            android:layout_marginTop="10dp"
+            android:minHeight="180dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System;
 
-namespace WhatsAppUpdater
+namespace WhatsUpdater
 {
 
-    [Activity(Label = "@string/title", 
+    [Activity(
+              Label = "@string/title", 
               MainLauncher = true, 
               Icon = "@mipmap/icon", 
               Theme = "@android:style/Theme.Material.Light.DarkActionBar" )]
@@ -109,19 +110,17 @@ namespace WhatsAppUpdater
             Android.Util.Log.Info(TAG, "GetLatestVersion ... ");
             var httpClient = new System.Net.Http.HttpClient();
 
-            var patternVersion = new Regex(@"<p class=""version"" align=""center"">Version\s*(?<version>(?:\d|\.)*)\s*</p>");
-            var patternDownload = new Regex(@"href=""(?<url>https://www.cdn.whatsapp.net/android/(?:\d|\.)*/WhatsApp.apk)"">");
+            var pattern = new Regex(@"href=""(?<url>https?://\S*/(?<version>(?:\d|\.)*)/WhatsApp.apk)"">");
 
             try 
             {
                 string contents = await httpClient.GetStringAsync("http://www.whatsapp.com/android/"); // async method!
                 foreach (var line in contents.Split(new string[] { System.Environment.NewLine }, System.StringSplitOptions.RemoveEmptyEntries))
                 {
-                    var matchVersion = patternVersion.Match(line);
-                    var matchDownload = patternDownload.Match(line);
-                    if (matchVersion.Success && matchDownload.Success)
+                    var match = pattern.Match(line);
+                    if (match.Success)
                     {
-                        (string version, string url) info = (matchVersion.Groups["version"].Value, matchDownload.Groups["url"].Value);
+                        (string version, string url) info = (match.Groups["version"].Value, match.Groups["url"].Value);
                         Android.Util.Log.Info(TAG, $" ... version {info.version} url {info.url} ");
                         return info;
                     }
@@ -140,7 +139,7 @@ namespace WhatsAppUpdater
             
             DownloadManager.Request request = new DownloadManager.Request(Android.Net.Uri.Parse(url));
             request.SetDescription(Resources.GetString(Resource.String.download));
-            request.SetTitle(Resources.GetString(Resource.String.app_name));
+            request.SetTitle(Resources.GetString(Resource.String.appName));
             request.SetDestinationInExternalPublicDir(Android.OS.Environment.DirectoryDownloads, $"/WhatsApp_{version}.apk");
 
             DownloadManager manager = (DownloadManager)GetSystemService(Context.DownloadService);

@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsAppUpdater", "WhatsAppUpdater\WhatsAppUpdater.csproj", "{1A9931C5-FB0A-444C-8341-92A085207E73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatsUpdater", "WhatsUpdater\WhatsUpdater.csproj", "{1A9931C5-FB0A-444C-8341-92A085207E73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

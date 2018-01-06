@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="appName">WhatsUpdater</string>
+    <string name="title">WhatsUpdater</string>
+    <string name="header">Upadte WhatsApp</string>
+    <string name="refresh">Check</string>
+    <string name="refreshMessage">Check versions</string>
+
+    <string name="install">Install latest version</string>
+    <string name="download">APK download</string>
+    <string name="startInstall">Start installation</string>
+    
+    <string name="labelInstallVersion">Install version</string>
+    <string name="labelLatestVersion">Latest available version</string>
+    
+    <string name="downloadFailed">Download failed!</string>
+
+    <string name="ok">Ok</string>
+    <string name="oops">Ooops</string>
+    
+    <string name="noWifi">No WLAN</string>
+    <string name="requestFailed">Request failed</string>
+    <string name="notFound">Not found</string>
+    <string name="notInstalled">Not  installed</string>
+</resources>

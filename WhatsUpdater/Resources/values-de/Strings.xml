@@ -1,16 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">WhatsApp Updater</string>
-    <string name="title">WhatsApp Aktualisieren</string>
+	<string name="appName">WhatsUpdater</string>
+    <string name="title">WhatsUpdater</string>
+    <string name="header">WhatsApp aktualisieren</string>
     <string name="refresh">Prüfen</string>
     <string name="refreshMessage">Versionen prüfen</string>
 
-    <string name="install">Update installieren</string>
+    <string name="install">Neuste Version installieren</string>
     <string name="download">APK download</string>
     <string name="startInstall">Starte installation</string>
     
     <string name="labelInstallVersion">Installierte Version</string>
-    <string name="labelLatestVersion">Neuste Version</string>
+    <string name="labelLatestVersion">Neuste verfügbare Version</string>
     
     <string name="downloadFailed">Download fehlgeschlagen!</string>
 
